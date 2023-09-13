@@ -1,7 +1,8 @@
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { RealEstate } from "./realEstates.entity";
+import { number } from "zod";
 
-@Entity({ name: "addresses" })
+@Entity("addresses")
 export class Address {
     @PrimaryGeneratedColumn()
     id: number;
@@ -12,8 +13,8 @@ export class Address {
     @Column({ type: "varchar", length: 8 })
     zipCode: string;
 
-    @Column({ type: "varchar", length: 7, nullable: true })
-    number: string | undefined | null;
+    @Column({ type: "int" })
+    number: number;
 
     @Column({ type: "varchar", length: 20 })
     city: string;
@@ -21,6 +22,6 @@ export class Address {
     @Column({ type: "varchar", length: 2 })
     state: string;
 
-    @OneToOne(() => RealEstate)
+    @OneToOne(() => RealEstate, (realEstate) => realEstate.address)
     realEstate: RealEstate;
 }

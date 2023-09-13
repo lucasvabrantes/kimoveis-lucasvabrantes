@@ -13,7 +13,7 @@ import { Category } from "./categories.entity";
 import { Address } from "./adresses.entity";
 import { Schedule } from "./schedules.entity";
 
-@Entity("real_estates")
+@Entity("realEstates")
 export class RealEstate {
     @PrimaryGeneratedColumn()
     id: number;
@@ -28,18 +28,18 @@ export class RealEstate {
     size: number;
 
     @CreateDateColumn({ type: "date" })
-    createdAt: Date;
+    createdAt: string;
 
     @UpdateDateColumn({ type: "date" })
-    updatedAt: Date;
+    updatedAt: string;
 
-    @ManyToOne(() => Category)
+    @ManyToOne(() => Category, (c) => c.realEstate)
     category: Category;
 
     @OneToOne(() => Address)
     @JoinColumn()
     address: Address;
 
-    @OneToMany(() => Schedule, (schedules) => schedules.realEstate)
-    schedules: Schedule[];
+    @OneToMany(() => Schedule, (sc) => sc.realEstate)
+    schedules: Array<Schedule>;
 }

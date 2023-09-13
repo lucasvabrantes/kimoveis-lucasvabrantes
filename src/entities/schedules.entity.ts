@@ -13,17 +13,15 @@ export class Schedule {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: "date" })
     date: string;
 
-    @Column()
+    @Column({ type: "time" })
     hour: string;
 
-    @ManyToOne(() => User)
-    @JoinColumn()
+    @ManyToOne(() => User, (u) => u.schedules)
     user: User;
 
-    @ManyToOne(() => RealEstate)
-    @JoinColumn()
+    @ManyToOne(() => RealEstate, (realEstate) => realEstate.schedules)
     realEstate: RealEstate;
 }
